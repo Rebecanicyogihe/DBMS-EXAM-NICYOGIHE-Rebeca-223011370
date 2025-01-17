@@ -18,6 +18,7 @@ mysql> use client;
 Database changed
 
 PART A (QUESTION 1 TO QUESTION 5)
+QUESTION 1:
 
 mysql> create table Client_master(ClientNO int(4),Name varchar(18),Address varchar(14),City varchar(8),State varchar(20),bal_due int(6));
 Query OK, 0 rows affected, 2 warnings (0.03 sec)
@@ -51,23 +52,19 @@ mysql> select *from Client_master;
 +----------+-----------+---------+----------+------------+---------+
 5 rows in set (0.00 sec)
 
-mysql> select *from Client_master where bal_due= '5000';
-+----------+----------+---------+----------+--------+---------+
-| ClientNO | Name     | Address | City     | State  | bal_due |
-+----------+----------+---------+----------+--------+---------+
-|      122 | Mignogne | TR456   | Cyruprus | Turkey |    5000 |
-+----------+----------+---------+----------+--------+---------+
-1 row in set (0.02 sec)
 
-mysql> select *from Client_master where bal_due>= '5000';
-+----------+-----------+---------+----------+---------+---------+
-| ClientNO | Name      | Address | City     | State   | bal_due |
-+----------+-----------+---------+----------+---------+---------+
-|      122 | Mignogne  | TR456   | Cyruprus | Turkey  |    5000 |
-|      123 | Karakpint | Chicl32 | Michigan | Chikago |    6000 |
-|      124 | Adienliho | Mfl218  | Oceandri | Miami   |    7000 |
-+----------+-----------+---------+----------+---------+---------+
-3 rows in set (0.00 sec)
+QUESTION 2:
+
+mysql> select name from Client_master where bal_due >'5000';
++-----------+
+| name      |
++-----------+
+| Karakpint |
+| Adienliho |
++-----------+
+2 rows in set (0.00 sec)
+
+QUESTION3:
 
 mysql> update Client_master set bal_due= 5100 where ClientNO= 123;
 Query OK, 1 row affected (0.02 sec)
@@ -84,6 +81,8 @@ mysql> select *from Client_master;
 |      124 | Adienliho | Mfl218  | Oceandri | Miami      |    7000 |
 +----------+-----------+---------+----------+------------+---------+
 5 rows in set (0.00 sec)
+
+QUESTION 4:
 
 mysql> rename table Client_master to Client12;
 Query OK, 0 rows affected (0.01 sec)
@@ -108,8 +107,9 @@ mysql> select *from Client12;
 
 PART B (QUESTION 6 TO 7)
 
-QUESTION 6
+QUESTION 6:
 
+A:
 mysql> create table DEPARTMENTS(Dep_id int(8),Dep_name varchar(10),manager_id varchar(9),location varchar(14),start_time varchar(18));
 Query OK, 0 rows affected, 1 warning (0.01 sec)
 
@@ -156,7 +156,7 @@ mysql> select *from EMPLOYEES;
 |     13 | belise   | bels@mail |  56000 | 73976751 |
 +--------+----------+-----------+--------+----------+
 3 rows in set (0.00 sec)
-
+B:
 mysql> desc EMPLOYEES;
 +----------+-------------+------+-----+---------+-------+
 | Field    | Type        | Null | Key | Default | Extra |
@@ -179,6 +179,8 @@ Rows matched: 1  Changed: 1  Warnings: 0
 mysql> update DEPARTMENTS set Dep_name='belise' where Dep_id='103';
 Query OK, 1 row affected (0.00 sec)
 Rows matched: 1  Changed: 1  Warnings: 0
+
+C:
 mysql> select EMPLOYEES.Emp_name from EMPLOYEES left join DEPARTMENTS on EMPLOYEES.Emp_name = DEPARTMENTS.Dep_name;
 +----------+
 | Emp_name |
@@ -188,7 +190,7 @@ mysql> select EMPLOYEES.Emp_name from EMPLOYEES left join DEPARTMENTS on EMPLOYE
 | belise   |
 +----------+
 3 rows in set (0.00 sec)
-
+D:
 mysql> select EMPLOYEES.Emp_name from EMPLOYEES right join DEPARTMENTS on EMPLOYEES.Emp_name = DEPARTMENTS.Dep_name;
 +----------+
 | Emp_name |
@@ -199,14 +201,22 @@ mysql> select EMPLOYEES.Emp_name from EMPLOYEES right join DEPARTMENTS on EMPLOY
 +----------+
 3 rows in set (0.00 sec)
 
-QUESTION 7
+E:
+mysql> SELECT * FROM employees WHERE salary > (SELECT AVG(salary) FROM employees);
++--------+----------+-----------+--------+----------+
+| Emp_id | Emp_name | email     | salary | phone    |
++--------+----------+-----------+--------+----------+
+|     12 | kirezi   | kirz@mail |  90000 | 79386754 |
++--------+----------+-----------+--------+----------+
+1 row in set (0.01 sec)
+
+QUESTION 7:
 
 mysql> create table STUDENT(studentId varchar(5),fullnames varchar(25),gender varchar(6),age int(2),department varchar(30));
 Query OK, 0 rows affected, 1 warning (0.01 sec)
 
+4:
 mysql> insert into STUDENT values('235','mukunzi_yanick,'male','21','accounting');
-    '> insert into STUDENT values('235','mukunzi_yanick,'male','21','accounting');
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'male','21','accounting');
 insert into STUDENT values('235','mukunzi_yanick,'male' at line 1
 mysql> insert into STUDENT values('235','mukunzi_yanick','male','21','accounting');
 Query OK, 1 row affected (0.00 sec)
@@ -223,6 +233,7 @@ Query OK, 1 row affected (0.00 sec)
 mysql> insert into STUDENT values('239','keza_winna','female','17','pharmacology');
 Query OK, 1 row affected (0.00 sec)
 
+1:
 mysql> select *from STUDENT;
 +-----------+-----------------+--------+------+--------------------+
 | studentId | fullnames       | gender | age  | department         |
@@ -235,6 +246,7 @@ mysql> select *from STUDENT;
 +-----------+-----------------+--------+------+--------------------+
 5 rows in set (0.00 sec)
 
+2:
 mysql> select *from STUDENT where gender='female';
 +-----------+-------------+--------+------+--------------------+
 | studentId | fullnames   | gender | age  | department         |
@@ -244,6 +256,7 @@ mysql> select *from STUDENT where gender='female';
 +-----------+-------------+--------+------+--------------------+
 2 rows in set (0.00 sec)
 
+3:
 mysql> select *from STUDENT where gender='male';
 +-----------+-----------------+--------+------+-----------------+
 | studentId | fullnames       | gender | age  | department      |
@@ -254,6 +267,7 @@ mysql> select *from STUDENT where gender='male';
 +-----------+-----------------+--------+------+-----------------+
 3 rows in set (0.00 sec)
 
+5:
 mysql> delete from STUDENT where age<20;
 Query OK, 2 rows affected (0.00 sec)
 
@@ -336,6 +350,7 @@ mysql> select *from employees;
 +-------------+------------+-----------+-------------+--------------+-----------+--------+--------+---------------+------------+---------------+
 5 rows in set (0.00 sec)
 
+A:
 mysql> select employee_id,first_name,last_name,salary from employees;
 +-------------+------------+-----------+--------+
 | employee_id | first_name | last_name | salary |
@@ -348,6 +363,7 @@ mysql> select employee_id,first_name,last_name,salary from employees;
 +-------------+------------+-----------+--------+
 5 rows in set (0.00 sec)
 
+B:
 mysql> select *from employees where manager_id='100';
 +-------------+------------+-----------+-----------+--------------+-----------+--------+--------+---------------+------------+---------------+
 | employee_id | first_name | last_name | email     | phone_number | hire_date | job_id | salary | commision_pct | manager_id | department_id |
@@ -372,6 +388,7 @@ mysql> select *from employees;
 +-------------+------------+-----------+-------------+--------------+-----------+--------+--------+---------------+------------+---------------+
 6 rows in set (0.00 sec)
 
+C:
 mysql> select first_name,last_name from employees where salary >= 4800;
 +------------+-----------+
 | first_name | last_name |
@@ -400,6 +417,7 @@ mysql> select *from employees;
 +-------------+------------+-----------+-------------+--------------+-----------+--------+--------+---------------+------------+---------------+
 6 rows in set (0.00 sec)
 
+D:
 mysql> select *from employees where last_name='austin';
 +-------------+------------+-----------+-------------+--------------+-----------+--------+--------+---------------+------------+---------------+
 | employee_id | first_name | last_name | email       | phone_number | hire_date | job_id | salary | commision_pct | manager_id | department_id |
@@ -407,6 +425,8 @@ mysql> select *from employees where last_name='austin';
 |           3 | hirwa      | austin    | hirwle@mail | 729756478    | 03/07/23  |    100 |   5500 |           5.5 |         77 | 80            |
 +-------------+------------+-----------+-------------+--------------+-----------+--------+--------+---------------+------------+---------------+
 1 row in set (0.00 sec)
+
+E:
 mysql> select first_name,last_name from employees where department_id = 60 or department_id = 70 or department_id = 80;
 +------------+-----------+
 | first_name | last_name |
@@ -422,6 +442,7 @@ QUESTION10
 mysql> create table sales(sales_No int(4),salesname varchar(10),branch varchar(14),salesamount int(7),DOB DATE);
 Query OK, 0 rows affected, 2 warnings (0.01 sec)
 
+A:
 mysql> insert into sales value (1, 'John Smith', 'New York', 1500, '1985-07-14');
 Query OK, 1 row affected (0.00 sec)
 
@@ -449,6 +470,7 @@ mysql> select *from sales;
 +----------+------------+-------------+-------------+------------+
 5 rows in set (0.00 sec)
 
+B:
 mysql> select sum(salesamount) from sales;
 +------------------+
 | sum(salesamount) |
@@ -457,6 +479,7 @@ mysql> select sum(salesamount) from sales;
 +------------------+
 1 row in set (0.00 sec)
 
+C:
 mysql> select avg(salesamount) from sales;
 +------------------+
 | avg(salesamount) |
@@ -594,6 +617,8 @@ mysql> SELECT SalesName, DOB FROM Sales WHERE (DOB) = Dec;
 ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Dec' at line 1
 mysql> SELECT SalesName, DOB FROM Sales WHERE DOB = 1986-Dec-05;
 ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Dec-05' at line 1
+
+D:
 mysql> SELECT SalesName, DOB FROM Sales WHERE DOB = '1986-Dec-05';
 +------------+-------------+
 | SalesName  | DOB         |
@@ -676,6 +701,7 @@ mysql> select *from sales;
 +----------+------------+-------------+-------------+------------------+-----------+
 5 rows in set (0.00 sec)
 
+E:
 mysql> SELECT SalesName, DOB FROM Sales ORDER BY monthname ASC;
 +------------+------------------+
 | SalesName  | DOB              |
