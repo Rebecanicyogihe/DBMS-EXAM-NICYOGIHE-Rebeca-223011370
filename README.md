@@ -1,0 +1,2 @@
+# DBMS-EXAM-NICYOGIHE-Rebeca-223011370
+Practical exam
