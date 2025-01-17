@@ -1,0 +1,693 @@
+Enter password:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 9
+Server version: 8.3.0 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create database client;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use client;
+Database changed
+
+PART A (QUESTION 1 TO QUESTION 5)
+
+mysql> create table Client_master(ClientNO int(4),Name varchar(18),Address varchar(14),City varchar(8),State varchar(20),bal_due int(6));
+Query OK, 0 rows affected, 2 warnings (0.03 sec)
+
+mysql> insert into Client values('120','Neylla','NY1007','Broadway','Newyork','4000');
+ERROR 1146 (42S02): Table 'client.client' doesn't exist
+mysql> insert into Client_master values('120','Neylla','NY1007','Broadway','Newyork','4000');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into Client_master values('121','Queenkent','lS2005','Hollywood','Losangless','4500');
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+mysql> insert into Client_master values('122','Mignogne','TR456','Cyruprus','Turkey','5000');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into Client_master values('123','Karakpint','Chicl32','Michigan','Chikago','6000');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into Client_master values('124','Adienliho','Mfl218','Oceandrive','Miami','7000');
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+mysql> select *from Client_master;
++----------+-----------+---------+----------+------------+---------+
+| ClientNO | Name      | Address | City     | State      | bal_due |
++----------+-----------+---------+----------+------------+---------+
+|      120 | Neylla    | NY1007  | Broadway | Newyork    |    4000 |
+|      121 | Queenkent | lS2005  | Hollywoo | Losangless |    4500 |
+|      122 | Mignogne  | TR456   | Cyruprus | Turkey     |    5000 |
+|      123 | Karakpint | Chicl32 | Michigan | Chikago    |    6000 |
+|      124 | Adienliho | Mfl218  | Oceandri | Miami      |    7000 |
++----------+-----------+---------+----------+------------+---------+
+5 rows in set (0.00 sec)
+
+mysql> select *from Client_master where bal_due= '5000';
++----------+----------+---------+----------+--------+---------+
+| ClientNO | Name     | Address | City     | State  | bal_due |
++----------+----------+---------+----------+--------+---------+
+|      122 | Mignogne | TR456   | Cyruprus | Turkey |    5000 |
++----------+----------+---------+----------+--------+---------+
+1 row in set (0.02 sec)
+
+mysql> select *from Client_master where bal_due>= '5000';
++----------+-----------+---------+----------+---------+---------+
+| ClientNO | Name      | Address | City     | State   | bal_due |
++----------+-----------+---------+----------+---------+---------+
+|      122 | Mignogne  | TR456   | Cyruprus | Turkey  |    5000 |
+|      123 | Karakpint | Chicl32 | Michigan | Chikago |    6000 |
+|      124 | Adienliho | Mfl218  | Oceandri | Miami   |    7000 |
++----------+-----------+---------+----------+---------+---------+
+3 rows in set (0.00 sec)
+
+mysql> update Client_master set bal_due= 5100 where ClientNO= 123;
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select *from Client_master;
++----------+-----------+---------+----------+------------+---------+
+| ClientNO | Name      | Address | City     | State      | bal_due |
++----------+-----------+---------+----------+------------+---------+
+|      120 | Neylla    | NY1007  | Broadway | Newyork    |    4000 |
+|      121 | Queenkent | lS2005  | Hollywoo | Losangless |    4500 |
+|      122 | Mignogne  | TR456   | Cyruprus | Turkey     |    5000 |
+|      123 | Karakpint | Chicl32 | Michigan | Chikago    |    5100 |
+|      124 | Adienliho | Mfl218  | Oceandri | Miami      |    7000 |
++----------+-----------+---------+----------+------------+---------+
+5 rows in set (0.00 sec)
+
+mysql> rename table Client_master to Client12;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> alter table Client12 change column bal_due BALANCE;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> alter table Client12 change column bal_due BALANCE int(6);
+Query OK, 0 rows affected, 1 warning (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 1
+
+mysql> select *from Client12;
++----------+-----------+---------+----------+------------+---------+
+| ClientNO | Name      | Address | City     | State      | BALANCE |
++----------+-----------+---------+----------+------------+---------+
+|      120 | Neylla    | NY1007  | Broadway | Newyork    |    4000 |
+|      121 | Queenkent | lS2005  | Hollywoo | Losangless |    4500 |
+|      122 | Mignogne  | TR456   | Cyruprus | Turkey     |    5000 |
+|      123 | Karakpint | Chicl32 | Michigan | Chikago    |    5100 |
+|      124 | Adienliho | Mfl218  | Oceandri | Miami      |    7000 |
++----------+-----------+---------+----------+------------+---------+
+5 rows in set (0.00 sec)
+
+PART B (QUESTION 6 TO 7)
+
+QUESTION 6
+
+mysql> create table DEPARTMENTS(Dep_id int(8),Dep_name varchar(10),manager_id varchar(9),location varchar(14),start_time varchar(18));
+Query OK, 0 rows affected, 1 warning (0.01 sec)
+
+mysql> create table EMPLOYEES(Emp_id int(8),Emp_name varchar(14),email varchar(9),salary int(6),phone int(18));
+Query OK, 0 rows affected, 3 warnings (0.01 sec)
+
+mysql> select *from DEPARTMENTS;
+Empty set (0.00 sec)
+
+mysql> insert into DEPARTMENTS values('101','administration','11','underground','09:00am');
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+mysql> insert into DEPARTMENTS values('102','shipping','12','firstfloor','10:00am');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into DEPARTMENTS values('103','marketing','13','secondfloor','12:00am');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into EMPLOYEES values('11','keza','kza@mail','60000','78786754');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into EMPLOYEES values('12','kirezi','kirz@mail','90000','79386754');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into EMPLOYEES values('13','belise','bels@mail','56000','73976751');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select *from DEPARTMENTS;
++--------+------------+------------+-------------+------------+
+| Dep_id | Dep_name   | manager_id | location    | start_time |
++--------+------------+------------+-------------+------------+
+|    101 | administra | 11         | underground | 09:00am    |
+|    102 | shipping   | 12         | firstfloor  | 10:00am    |
+|    103 | marketing  | 13         | secondfloor | 12:00am    |
++--------+------------+------------+-------------+------------+
+3 rows in set (0.00 sec)
+
+mysql> select *from EMPLOYEES;
++--------+----------+-----------+--------+----------+
+| Emp_id | Emp_name | email     | salary | phone    |
++--------+----------+-----------+--------+----------+
+|     11 | keza     | kza@mail  |  60000 | 78786754 |
+|     12 | kirezi   | kirz@mail |  90000 | 79386754 |
+|     13 | belise   | bels@mail |  56000 | 73976751 |
++--------+----------+-----------+--------+----------+
+3 rows in set (0.00 sec)
+
+mysql> desc EMPLOYEES;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| Emp_id   | int         | YES  |     | NULL    |       |
+| Emp_name | varchar(14) | YES  |     | NULL    |       |
+| email    | varchar(9)  | YES  |     | NULL    |       |
+| salary   | int         | YES  |     | NULL    |       |
+| phone    | int         | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+5 rows in set (0.02 sec)
+
+mysql> update DEPARTMENTS set Dep_name='keza' where Dep_id='101';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update DEPARTMENTS set Dep_name='kirezi' where Dep_id='102';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+mysql> update DEPARTMENTS set Dep_name='belise' where Dep_id='103';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+mysql> select EMPLOYEES.Emp_name from EMPLOYEES left join DEPARTMENTS on EMPLOYEES.Emp_name = DEPARTMENTS.Dep_name;
++----------+
+| Emp_name |
++----------+
+| keza     |
+| kirezi   |
+| belise   |
++----------+
+3 rows in set (0.00 sec)
+
+mysql> select EMPLOYEES.Emp_name from EMPLOYEES right join DEPARTMENTS on EMPLOYEES.Emp_name = DEPARTMENTS.Dep_name;
++----------+
+| Emp_name |
++----------+
+| keza     |
+| kirezi   |
+| belise   |
++----------+
+3 rows in set (0.00 sec)
+
+QUESTION 7
+
+mysql> create table STUDENT(studentId varchar(5),fullnames varchar(25),gender varchar(6),age int(2),department varchar(30));
+Query OK, 0 rows affected, 1 warning (0.01 sec)
+
+mysql> insert into STUDENT values('235','mukunzi_yanick,'male','21','accounting');
+    '> insert into STUDENT values('235','mukunzi_yanick,'male','21','accounting');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'male','21','accounting');
+insert into STUDENT values('235','mukunzi_yanick,'male' at line 1
+mysql> insert into STUDENT values('235','mukunzi_yanick','male','21','accounting');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into STUDENT values('236','rukundo_aimable','male','19','corporatefiance');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into STUDENT values('237','uwera_annet','female','20','businesstechnology');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into STUDENT values('238','kayigi_kevin','male','23','generalnursing');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into STUDENT values('239','keza_winna','female','17','pharmacology');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select *from STUDENT;
++-----------+-----------------+--------+------+--------------------+
+| studentId | fullnames       | gender | age  | department         |
++-----------+-----------------+--------+------+--------------------+
+| 235       | mukunzi_yanick  | male   |   21 | accounting         |
+| 236       | rukundo_aimable | male   |   19 | corporatefiance    |
+| 237       | uwera_annet     | female |   20 | businesstechnology |
+| 238       | kayigi_kevin    | male   |   23 | generalnursing     |
+| 239       | keza_winna      | female |   17 | pharmacology       |
++-----------+-----------------+--------+------+--------------------+
+5 rows in set (0.00 sec)
+
+mysql> select *from STUDENT where gender='female';
++-----------+-------------+--------+------+--------------------+
+| studentId | fullnames   | gender | age  | department         |
++-----------+-------------+--------+------+--------------------+
+| 237       | uwera_annet | female |   20 | businesstechnology |
+| 239       | keza_winna  | female |   17 | pharmacology       |
++-----------+-------------+--------+------+--------------------+
+2 rows in set (0.00 sec)
+
+mysql> select *from STUDENT where gender='male';
++-----------+-----------------+--------+------+-----------------+
+| studentId | fullnames       | gender | age  | department      |
++-----------+-----------------+--------+------+-----------------+
+| 235       | mukunzi_yanick  | male   |   21 | accounting      |
+| 236       | rukundo_aimable | male   |   19 | corporatefiance |
+| 238       | kayigi_kevin    | male   |   23 | generalnursing  |
++-----------+-----------------+--------+------+-----------------+
+3 rows in set (0.00 sec)
+
+mysql> delete from STUDENT where age<20;
+Query OK, 2 rows affected (0.00 sec)
+
+mysql> select *from STUDENT;
++-----------+----------------+--------+------+--------------------+
+| studentId | fullnames      | gender | age  | department         |
++-----------+----------------+--------+------+--------------------+
+| 235       | mukunzi_yanick | male   |   21 | accounting         |
+| 237       | uwera_annet    | female |   20 | businesstechnology |
+| 238       | kayigi_kevin   | male   |   23 | generalnursing     |
++-----------+----------------+--------+------+--------------------+
+3 rows in set (0.00 sec)
+
+PART C (QUESTION9 TO 10)
+
+QUESTION 9
+
+Enter password:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 11
+Server version: 8.3.0 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create database COMP;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> use comp;
+Database changed
+mysql> create table employees(employee_id int(2),first_name varchar(8),last_name varchar(10),email varchar(12),phone_number varchar(16),hire_date varchar(20),job_id int(7),salary int(5),commision_pct float(3),manager_id int(4),department_id varchar(6));
+Query OK, 0 rows affected, 4 warnings (0.01 sec)
+
+mysql> insert into employees values('1','byuma','leandre','bylean@mail','789753476','12/09/23','112','3500','3.5','99','70');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into employees values('2','kirezi','denyse','krzdns@mail','739753479','10/04/24','199','4500','4.5','88','60');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into employees values('3','hirwa','levy','hirwle@mail','729756478','03/07/23','100','5500,'5.5','77','80');
+    '>
+    '> insert into employees values('3','hirwa','levy','hirwle@mail','729756478','03/07/23','100','5500,'5.5','77','80');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '5.5','77','80');
+
+insert into employees values('3','hirwa','levy','hirwle@mail',' at line 1
+mysql> insert into employees values('3','hirwa','levy','hirwle@mail','729756478','03/07/23','100','5500','5.5','77','80');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into employees values('4','ramba','leonore','leon@mail','794756278','22/12/22','345','6500','6.5','66','90');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select *from employees;
++-------------+------------+-----------+-------------+--------------+-----------+--------+--------+---------------+------------+---------------+
+| employee_id | first_name | last_name | email       | phone_number | hire_date | job_id | salary | commision_pct | manager_id | department_id |
++-------------+------------+-----------+-------------+--------------+-----------+--------+--------+---------------+------------+---------------+
+|           1 | byuma      | leandre   | bylean@mail | 789753476    | 12/09/23  |    112 |   3500 |           3.5 |         99 | 70            |
+|           2 | kirezi     | denyse    | krzdns@mail | 739753479    | 10/04/24  |    199 |   4500 |           4.5 |         88 | 60            |
+|           3 | hirwa      | levy      | hirwle@mail | 729756478    | 03/07/23  |    100 |   5500 |           5.5 |         77 | 80            |
+|           4 | ramba      | leonore   | leon@mail   | 794756278    | 22/12/22  |    345 |   6500 |           6.5 |         66 | 90            |
++-------------+------------+-----------+-------------+--------------+-----------+--------+--------+---------------+------------+---------------+
+4 rows in set (0.00 sec)
+
+mysql> insert into employees values('5','karenzi','kevin','kevk@mail','784726275','28/10/21','154','7500','7.5','100','90');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select *from employees;
++-------------+------------+-----------+-------------+--------------+-----------+--------+--------+---------------+------------+---------------+
+| employee_id | first_name | last_name | email       | phone_number | hire_date | job_id | salary | commision_pct | manager_id | department_id |
++-------------+------------+-----------+-------------+--------------+-----------+--------+--------+---------------+------------+---------------+
+|           1 | byuma      | leandre   | bylean@mail | 789753476    | 12/09/23  |    112 |   3500 |           3.5 |         99 | 70            |
+|           2 | kirezi     | denyse    | krzdns@mail | 739753479    | 10/04/24  |    199 |   4500 |           4.5 |         88 | 60            |
+|           3 | hirwa      | levy      | hirwle@mail | 729756478    | 03/07/23  |    100 |   5500 |           5.5 |         77 | 80            |
+|           4 | ramba      | leonore   | leon@mail   | 794756278    | 22/12/22  |    345 |   6500 |           6.5 |         66 | 90            |
+|           5 | karenzi    | kevin     | kevk@mail   | 784726275    | 28/10/21  |    154 |   7500 |           7.5 |        100 | 90            |
++-------------+------------+-----------+-------------+--------------+-----------+--------+--------+---------------+------------+---------------+
+5 rows in set (0.00 sec)
+
+mysql> select employee_id,first_name,last_name,salary from employees;
++-------------+------------+-----------+--------+
+| employee_id | first_name | last_name | salary |
++-------------+------------+-----------+--------+
+|           1 | byuma      | leandre   |   3500 |
+|           2 | kirezi     | denyse    |   4500 |
+|           3 | hirwa      | levy      |   5500 |
+|           4 | ramba      | leonore   |   6500 |
+|           5 | karenzi    | kevin     |   7500 |
++-------------+------------+-----------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select *from employees where manager_id='100';
++-------------+------------+-----------+-----------+--------------+-----------+--------+--------+---------------+------------+---------------+
+| employee_id | first_name | last_name | email     | phone_number | hire_date | job_id | salary | commision_pct | manager_id | department_id |
++-------------+------------+-----------+-----------+--------------+-----------+--------+--------+---------------+------------+---------------+
+|           5 | karenzi    | kevin     | kevk@mail | 784726275    | 28/10/21  |    154 |   7500 |           7.5 |        100 | 90            |
++-------------+------------+-----------+-----------+--------------+-----------+--------+--------+---------------+------------+---------------+
+1 row in set (0.00 sec)
+
+mysql> insert into employees values('6','cyusa','aimme','cyusa@mail','784626285','11/01/25','151','4800','4.8','110','40');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select *from employees;
++-------------+------------+-----------+-------------+--------------+-----------+--------+--------+---------------+------------+---------------+
+| employee_id | first_name | last_name | email       | phone_number | hire_date | job_id | salary | commision_pct | manager_id | department_id |
++-------------+------------+-----------+-------------+--------------+-----------+--------+--------+---------------+------------+---------------+
+|           1 | byuma      | leandre   | bylean@mail | 789753476    | 12/09/23  |    112 |   3500 |           3.5 |         99 | 70            |
+|           2 | kirezi     | denyse    | krzdns@mail | 739753479    | 10/04/24  |    199 |   4500 |           4.5 |         88 | 60            |
+|           3 | hirwa      | levy      | hirwle@mail | 729756478    | 03/07/23  |    100 |   5500 |           5.5 |         77 | 80            |
+|           4 | ramba      | leonore   | leon@mail   | 794756278    | 22/12/22  |    345 |   6500 |           6.5 |         66 | 90            |
+|           5 | karenzi    | kevin     | kevk@mail   | 784726275    | 28/10/21  |    154 |   7500 |           7.5 |        100 | 90            |
+|           6 | cyusa      | aimme     | cyusa@mail  | 784626285    | 11/01/25  |    151 |   4800 |           4.8 |        110 | 40            |
++-------------+------------+-----------+-------------+--------------+-----------+--------+--------+---------------+------------+---------------+
+6 rows in set (0.00 sec)
+
+mysql> select first_name,last_name from employees where salary >= 4800;
++------------+-----------+
+| first_name | last_name |
++------------+-----------+
+| hirwa      | levy      |
+| ramba      | leonore   |
+| karenzi    | kevin     |
+| cyusa      | aimme     |
++------------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> update employees set last_name='austin' where employee_id='3';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select *from employees;
++-------------+------------+-----------+-------------+--------------+-----------+--------+--------+---------------+------------+---------------+
+| employee_id | first_name | last_name | email       | phone_number | hire_date | job_id | salary | commision_pct | manager_id | department_id |
++-------------+------------+-----------+-------------+--------------+-----------+--------+--------+---------------+------------+---------------+
+|           1 | byuma      | leandre   | bylean@mail | 789753476    | 12/09/23  |    112 |   3500 |           3.5 |         99 | 70            |
+|           2 | kirezi     | denyse    | krzdns@mail | 739753479    | 10/04/24  |    199 |   4500 |           4.5 |         88 | 60            |
+|           3 | hirwa      | austin    | hirwle@mail | 729756478    | 03/07/23  |    100 |   5500 |           5.5 |         77 | 80            |
+|           4 | ramba      | leonore   | leon@mail   | 794756278    | 22/12/22  |    345 |   6500 |           6.5 |         66 | 90            |
+|           5 | karenzi    | kevin     | kevk@mail   | 784726275    | 28/10/21  |    154 |   7500 |           7.5 |        100 | 90            |
+|           6 | cyusa      | aimme     | cyusa@mail  | 784626285    | 11/01/25  |    151 |   4800 |           4.8 |        110 | 40            |
++-------------+------------+-----------+-------------+--------------+-----------+--------+--------+---------------+------------+---------------+
+6 rows in set (0.00 sec)
+
+mysql> select *from employees where last_name='austin';
++-------------+------------+-----------+-------------+--------------+-----------+--------+--------+---------------+------------+---------------+
+| employee_id | first_name | last_name | email       | phone_number | hire_date | job_id | salary | commision_pct | manager_id | department_id |
++-------------+------------+-----------+-------------+--------------+-----------+--------+--------+---------------+------------+---------------+
+|           3 | hirwa      | austin    | hirwle@mail | 729756478    | 03/07/23  |    100 |   5500 |           5.5 |         77 | 80            |
++-------------+------------+-----------+-------------+--------------+-----------+--------+--------+---------------+------------+---------------+
+1 row in set (0.00 sec)
+mysql> select first_name,last_name from employees where department_id = 60 or department_id = 70 or department_id = 80;
++------------+-----------+
+| first_name | last_name |
++------------+-----------+
+| byuma      | leandre   |
+| kirezi     | denyse    |
+| hirwa      | austin    |
++------------+-----------+
+3 rows in set (0.00 sec)
+
+QUESTION10
+
+mysql> create table sales(sales_No int(4),salesname varchar(10),branch varchar(14),salesamount int(7),DOB DATE);
+Query OK, 0 rows affected, 2 warnings (0.01 sec)
+
+mysql> insert into sales value (1, 'John Smith', 'New York', 1500, '1985-07-14');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into sales values (2, 'Jane Doe', 'Los Angeles', 2000.75, '1990-02-28');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into sales values (3, 'Mike Brown', 'Chicago', 1750.00, '1988-11-10');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into sales values (4, 'Emily Davis', 'Houston', 2100.00, '1992-05-22');
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+mysql> insert into sales values (5, 'Chris Wilson', 'Miami', 1950.30, '1986-12-05');
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+mysql> select *from sales;
++----------+------------+-------------+-------------+------------+
+| sales_No | salesname  | branch      | salesamount | DOB        |
++----------+------------+-------------+-------------+------------+
+|        1 | John Smith | New York    |        1500 | 1985-07-14 |
+|        2 | Jane Doe   | Los Angeles |        2001 | 1990-02-28 |
+|        3 | Mike Brown | Chicago     |        1750 | 1988-11-10 |
+|        4 | Emily Davi | Houston     |        2100 | 1992-05-22 |
+|        5 | Chris Wils | Miami       |        1950 | 1986-12-05 |
++----------+------------+-------------+-------------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select sum(salesamount) from sales;
++------------------+
+| sum(salesamount) |
++------------------+
+|             9301 |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> select avg(salesamount) from sales;
++------------------+
+| avg(salesamount) |
++------------------+
+|        1860.2000 |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> alter table sales modify column DOB varchar(16);
+Query OK, 5 rows affected (0.03 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> insert into sales values (5, 'Chris Wilson', 'Miami', 1950.30, '1986-Dec-05');
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+mysql> insert into sales values (5, 'Chris Wilson', 'Miami', 1950.30, '1986-May-05');
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+mysql> insert into sales values (5, 'Chris Wilson', 'Miami', 1950.30, '1986-November-05');
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+mysql> insert into sales values (5, 'Chris Wilson', 'Miami', 1950.30, '1987-January-05');
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+mysql> insert into sales values (5, 'Chris Wilson', 'Miami', 1950.30, '1988-february-05');
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+mysql> select *from sales;
++----------+------------+-------------+-------------+------------------+
+| sales_No | salesname  | branch      | salesamount | DOB              |
++----------+------------+-------------+-------------+------------------+
+|        1 | John Smith | New York    |        1500 | 1985-07-14       |
+|        2 | Jane Doe   | Los Angeles |        2001 | 1990-02-28       |
+|        3 | Mike Brown | Chicago     |        1750 | 1988-11-10       |
+|        4 | Emily Davi | Houston     |        2100 | 1992-05-22       |
+|        5 | Chris Wils | Miami       |        1950 | 1986-12-05       |
+|        5 | Chris Wils | Miami       |        1950 | 1986-Dec-05      |
+|        5 | Chris Wils | Miami       |        1950 | 1986-May-05      |
+|        5 | Chris Wils | Miami       |        1950 | 1986-November-05 |
+|        5 | Chris Wils | Miami       |        1950 | 1987-January-05  |
+|        5 | Chris Wils | Miami       |        1950 | 1988-february-05 |
++----------+------------+-------------+-------------+------------------+
+10 rows in set (0.00 sec)
+
+mysql> delete from sales where sales_No = '5';
+Query OK, 6 rows affected (0.00 sec)
+
+mysql> select *from sales;
++----------+------------+-------------+-------------+------------+
+| sales_No | salesname  | branch      | salesamount | DOB        |
++----------+------------+-------------+-------------+------------+
+|        1 | John Smith | New York    |        1500 | 1985-07-14 |
+|        2 | Jane Doe   | Los Angeles |        2001 | 1990-02-28 |
+|        3 | Mike Brown | Chicago     |        1750 | 1988-11-10 |
+|        4 | Emily Davi | Houston     |        2100 | 1992-05-22 |
++----------+------------+-------------+-------------+------------+
+4 rows in set (0.00 sec)
+
+mysql> desc sales;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| sales_No    | int         | YES  |     | NULL    |       |
+| salesname   | varchar(10) | YES  |     | NULL    |       |
+| branch      | varchar(14) | YES  |     | NULL    |       |
+| salesamount | int         | YES  |     | NULL    |       |
+| DOB         | varchar(16) | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> insert into sales values (5, 'Chris Wilson', 'Miami', 1950.30, '1986-Dec-05');
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+mysql> select *from sales;
++----------+------------+-------------+-------------+-------------+
+| sales_No | salesname  | branch      | salesamount | DOB         |
++----------+------------+-------------+-------------+-------------+
+|        1 | John Smith | New York    |        1500 | 1985-07-14  |
+|        2 | Jane Doe   | Los Angeles |        2001 | 1990-02-28  |
+|        3 | Mike Brown | Chicago     |        1750 | 1988-11-10  |
+|        4 | Emily Davi | Houston     |        2100 | 1992-05-22  |
+|        5 | Chris Wils | Miami       |        1950 | 1986-Dec-05 |
++----------+------------+-------------+-------------+-------------+
+5 rows in set (0.00 sec)
+
+mysql> delete from sales where sales_No = '4';
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into sales values (4, 'Emily Davis', 'Houston', 2100.00, '1992-May-22');
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+mysql> select *from sales;
++----------+------------+-------------+-------------+-------------+
+| sales_No | salesname  | branch      | salesamount | DOB         |
++----------+------------+-------------+-------------+-------------+
+|        1 | John Smith | New York    |        1500 | 1985-07-14  |
+|        2 | Jane Doe   | Los Angeles |        2001 | 1990-02-28  |
+|        3 | Mike Brown | Chicago     |        1750 | 1988-11-10  |
+|        4 | Emily Davi | Houston     |        2100 | 1992-May-22 |
+|        5 | Chris Wils | Miami       |        1950 | 1986-Dec-05 |
++----------+------------+-------------+-------------+-------------+
+5 rows in set (0.00 sec)
+
+mysql> delete from sales where sales_No = '3';
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into sales values (3, 'Mike Brown', 'Chicago', 1750.00, '1988-November-10');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> delete from sales where sales_No = '2';
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into sales values (2, 'Jane Doe', 'Los Angeles', 2000.75, '1990-February-28');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> delete from sales where sales_No = '1';
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into sales value (1, 'John Smith', 'New York', 1500, '1985-July-14');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select *from sales;
++----------+------------+-------------+-------------+------------------+
+| sales_No | salesname  | branch      | salesamount | DOB              |
++----------+------------+-------------+-------------+------------------+
+|        1 | John Smith | New York    |        1500 | 1985-July-14     |
+|        2 | Jane Doe   | Los Angeles |        2001 | 1990-February-28 |
+|        3 | Mike Brown | Chicago     |        1750 | 1988-November-10 |
+|        4 | Emily Davi | Houston     |        2100 | 1992-May-22      |
+|        5 | Chris Wils | Miami       |        1950 | 1986-Dec-05      |
++----------+------------+-------------+-------------+------------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT SalesName, DOB FROM Sales WHERE (DOB) = Dec;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Dec' at line 1
+mysql> SELECT SalesName, DOB FROM Sales WHERE DOB = 1986-Dec-05;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Dec-05' at line 1
+mysql> SELECT SalesName, DOB FROM Sales WHERE DOB = '1986-Dec-05';
++------------+-------------+
+| SalesName  | DOB         |
++------------+-------------+
+| Chris Wils | 1986-Dec-05 |
++------------+-------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT SalesName, DOB, MONTHNAME(DOB) AS MonthName FROM Sales ORDER BY MonthName ASC;
++------------+------------------+-----------+
+| SalesName  | DOB              | MonthName |
++------------+------------------+-----------+
+| John Smith | 1985-July-14     | NULL      |
+| Jane Doe   | 1990-February-28 | NULL      |
+| Mike Brown | 1988-November-10 | NULL      |
+| Emily Davi | 1992-May-22      | NULL      |
+| Chris Wils | 1986-Dec-05      | NULL      |
++------------+------------------+-----------+
+5 rows in set, 10 warnings (0.00 sec)
+
+mysql> SELECT SalesName, DOB FROM Sales ORDER BY DOB ASC;
++------------+------------------+
+| SalesName  | DOB              |
++------------+------------------+
+| John Smith | 1985-July-14     |
+| Chris Wils | 1986-Dec-05      |
+| Mike Brown | 1988-November-10 |
+| Jane Doe   | 1990-February-28 |
+| Emily Davi | 1992-May-22      |
++------------+------------------+
+5 rows in set (0.00 sec)
+
+mysql> alter table university add gender char(4);
+ERROR 1146 (42S02): Table 'comp.university' doesn't exist
+mysql> alter table sales add Monthname char(4);
+Query OK, 5 rows affected (0.08 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> update sales set Monthname = 'july' where sales_No = '1';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update sales set Monthname = 'Dec' where sales_No = '2';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update sales set Monthname = 'November' where sales_No = '3';
+Query OK, 1 row affected, 1 warning (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 1
+
+mysql> update sales set Monthname = 'February' where sales_No = '4';
+Query OK, 1 row affected, 1 warning (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 1
+
+mysql> update sales set Monthname = 'May' where sales_No = '5';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT SalesName, DOB, MONTHNAME(DOB) AS MonthName FROM Sales ORDER BY MonthName ASC;
++------------+------------------+-----------+
+| SalesName  | DOB              | MonthName |
++------------+------------------+-----------+
+| John Smith | 1985-July-14     | NULL      |
+| Jane Doe   | 1990-February-28 | NULL      |
+| Mike Brown | 1988-November-10 | NULL      |
+| Emily Davi | 1992-May-22      | NULL      |
+| Chris Wils | 1986-Dec-05      | NULL      |
++------------+------------------+-----------+
+5 rows in set, 10 warnings (0.00 sec)
+
+mysql> select *from sales;
++----------+------------+-------------+-------------+------------------+-----------+
+| sales_No | salesname  | branch      | salesamount | DOB              | Monthname |
++----------+------------+-------------+-------------+------------------+-----------+
+|        1 | John Smith | New York    |        1500 | 1985-July-14     | july      |
+|        2 | Jane Doe   | Los Angeles |        2001 | 1990-February-28 | Dec       |
+|        3 | Mike Brown | Chicago     |        1750 | 1988-November-10 | Nove      |
+|        4 | Emily Davi | Houston     |        2100 | 1992-May-22      | Febr      |
+|        5 | Chris Wils | Miami       |        1950 | 1986-Dec-05      | May       |
++----------+------------+-------------+-------------+------------------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT SalesName, DOB FROM Sales ORDER BY monthname ASC;
++------------+------------------+
+| SalesName  | DOB              |
++------------+------------------+
+| Jane Doe   | 1990-February-28 |
+| Emily Davi | 1992-May-22      |
+| John Smith | 1985-July-14     |
+| Chris Wils | 1986-Dec-05      |
+| Mike Brown | 1988-November-10 |
++------------+------------------+
+5 rows in set (0.00 sec)
+
+mysql>
+
+
